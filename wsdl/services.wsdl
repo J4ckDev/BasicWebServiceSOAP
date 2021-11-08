@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://localhost/soap/wsdl/services/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="services" targetNamespace="http://localhost/soap/wsdl/services/">
+
+    <wsdl:types>
+        <xsd:schema targetNamespace="http://localhost/soap/wsdl/services/">
+            <xsd:element name="serverInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="name" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="serverInfoResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="response" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="serverInfoRequest">
+        <wsdl:part element="tns:serverInfo" name="name"/>
+    </wsdl:message>
+    <wsdl:message name="serverInfoResponse">
+        <wsdl:part element="tns:serverInfoResponse" name="response"/>
+    </wsdl:message>
+
+    <wsdl:portType name="services">
+        <wsdl:operation name="serverInfo">
+            <wsdl:input message="tns:serverInfoRequest"/>
+            <wsdl:output message="tns:serverInfoResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="servicesSOAP" type="tns:services">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="serverInfo">
+            <soap:operation soapAction="http://localhost/soap/wsdl/services/serverInfo" />
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="services">
+        <wsdl:port binding="tns:servicesSOAP" name="servicesSOAP">
+            <soap:address location="http://localhost/soap/Server.php"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
