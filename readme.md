@@ -17,4 +17,14 @@ Es importante que los archivos de este repositorio se guarden en una carpeta lla
 
 ## Client.php
 
-En construcción.
+Este archivo se encarga de consultar el servicio web para hacer uso del servicio `serverInfo`, que retorna un mensaje. Si por ejemplo se envía el parámetro `John`, el servidor retornaría un mensaje como el siguiente `Today 2021-11-09 23:11:11 the server is running correctly my dear John`.
+
+### Solución error en PHP 5.6.x
+Si obtiene el siguiente error
+
+```
+Deprecated: Automatically populating $HTTP_RAW_POST_DATA is deprecated and will be removed in a future version. To avoid this warning set 'always_populate_raw_post_data' to '-1' in php.ini and use the php://input stream instead. in Unknown on line 0
+
+Warning: Cannot modify header information - headers already sent in Unknown on line 0
+```
+o en la carpeta logs que puede generar `Client.php`, uno de los archivos contiene un error que dice `The operation was not executed. - looks like we got no XML document`. El error se soluciona abriendo el archivo `php.ini` descometando la línea `always_populate_raw_post_data = -1`. De todas maneras la recomendación es hacer un upgrade de PHP 5.6.x a cualquier versión de PHP 7.0 en adelante.
